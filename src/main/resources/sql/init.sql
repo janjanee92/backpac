@@ -5,6 +5,7 @@ drop table if exists hibernate_sequence cascade;
 -- END DROP TABLE -----------------------
 
 -- START CREATE TABLE -------------------
+-- BACKPAC_MEMBER
 create table backpac_member
 (
     member_id    bigint       not null,
@@ -14,6 +15,9 @@ create table backpac_member
     nickname     varchar(30)  not null,
     password     varchar(255) not null,
     phone_number varchar(20)  not null,
+    enabled      bit,
+    locked       bit,
+    member_role varchar(255),
     primary key (member_id)
 ) engine = InnoDB;
 
@@ -24,7 +28,7 @@ alter table backpac_member
 alter table backpac_member
     add constraint UK_backpac_user_phone_number unique (phone_number);
 
-
+-- BACKPAC_ORDER
 create table backpac_order
 (
     order_id     bigint       not null,
@@ -36,12 +40,22 @@ create table backpac_order
 ) engine = InnoDB;
 
 alter table backpac_order
-    add constraint FK_backpac_order_member_id foreign key (member_id) references backpac_member (member_id);
+    add constraint FK_backpac_order_member_id foreign key (member_id)
+        references backpac_member (member_id);
 
-create table hibernate_sequence
+-- SEQUENCE
+create table member_sequence
 (
     next_val bigint
 ) engine = InnoDB;
 
-insert into hibernate_sequence
+insert into member_sequence
+values (1);
+
+create table order_sequence
+(
+    next_val bigint
+) engine=InnoDB;
+
+insert into order_sequence
 values (1);
