@@ -1,4 +1,4 @@
-package com.backpac.jwt;
+package com.backpac.jwt.config;
 
 import lombok.Data;
 import lombok.Getter;

@@ -1,5 +1,6 @@
-package com.backpac.jwt;
+package com.backpac.jwt.filter;
 
+import com.backpac.jwt.config.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;

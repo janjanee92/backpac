@@ -1,8 +1,9 @@
-package com.backpac.jwt;
+package com.backpac.jwt.filter;
 
+import com.backpac.jwt.UsernameAndPasswordAuthenticationRequest;
+import com.backpac.jwt.config.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
