@@ -8,9 +8,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberRequest {
+public class SignUpDto {
 
     //TODO: 한글, 영문대소문자
     @NotBlank
