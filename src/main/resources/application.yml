@@ -1,8 +1,6 @@
 server:
   port: 9000
-  error:
-    include-message: always
-    include-binding-errors: always
+
 spring:
   datasource:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
@@ -12,15 +10,11 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-
-logging:
-  level:
-    com.backpac: DEBUG
 
 jwt:
   secretKey: "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppaGFuLXNwcmluZy1ib290LXNlY3VyaXR5LWp3dC10dXRvcmlhbAo="

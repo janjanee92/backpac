@@ -30,12 +30,7 @@ public class MemberService implements UserDetailsService {
 
     @Transactional
     public Long saveNewMember(@Valid SignUpDto signUpDto) {
-        boolean memberExist = memberRepository.findByEmail(signUpDto.getEmail())
-                .isPresent();
-
-        if (memberExist) {
-            throw new IllegalStateException("이미 존재하는 이메일 주소입니다.");
-        }
+        validateDuplicateMemberEmail(signUpDto.getEmail());
 
         Member newMember = Member.builder()
                 .name(signUpDto.getName())
@@ -47,6 +42,21 @@ public class MemberService implements UserDetailsService {
                 .build();
 
         return memberRepository.save(newMember).getId();
+    }
+
+    private void validateDuplicateMemberEmail(String email) {
+        boolean memberExist = memberRepository.findByEmail(email)
+                .isPresent();
+
+        if (memberExist) {
+            throw new IllegalStateException("이미 존재하는 이메일 주소입니다.");
+        }
+    }
+
+    public Member findOne(String emailOrNickname) {
+        return memberRepository.findByEmail(emailOrNickname)
+                .orElseGet(() -> memberRepository.findByNickname(emailOrNickname)
+                        .orElseThrow(() -> new IllegalStateException("사용자 정보가 존재하지 않습니다.")));
     }
 
 }

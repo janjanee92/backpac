@@ -1,5 +1,6 @@
 package com.backpac.security.config;
 
+import com.backpac.jwt.TokenProvider;
 import com.backpac.jwt.config.JwtConfig;
 import com.backpac.jwt.exception.JwtAccessDeniedHandler;
 import com.backpac.jwt.exception.JwtAuthenticationEntryPoint;
@@ -30,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final SecretKey secretKey;
     private final JwtConfig jwtConfig;
+    private final TokenProvider tokenProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,8 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), secretKey, jwtConfig))
-                .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, tokenProvider))
+                .addFilterAfter(new JwtTokenVerifier(jwtConfig, tokenProvider), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "/sign-up")
                 .permitAll()
