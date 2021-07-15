@@ -16,7 +16,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     public List<Order> findOrdersByMember(Long id) {
-        Member member = memberService.findOne(id);
-        return orderRepository.findAllByMember(member);
+        return orderRepository.findAllByMember(id);
     }
 }
