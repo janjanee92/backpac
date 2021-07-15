@@ -16,9 +16,6 @@ create table backpac_member
     nickname     varchar(30)  not null,
     password     varchar(255) not null,
     phone_number varchar(20)  not null,
-    enabled      bit,
-    locked       bit,
-    member_role varchar(255),
     primary key (member_id)
 ) engine = InnoDB;
 

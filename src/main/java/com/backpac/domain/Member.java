@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = {"password", "orders"})
 @Table(name="backpac_member")
 public class Member implements UserDetails {
 
@@ -58,16 +59,6 @@ public class Member implements UserDetails {
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private MemberRole memberRole = MemberRole.USER;
-
-    @Builder.Default
-    private boolean locked = false;
-
-    @Builder.Default
-    private boolean enabled = true;
-
     public static Member createMember(String name, String nickname, String email,
                                       String password, String phoneNumber, Gender gender) {
         return Member.builder()
@@ -83,7 +74,7 @@ public class Member implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =
-                new SimpleGrantedAuthority(memberRole.name());
+                new SimpleGrantedAuthority(MemberRole.USER.name());
         return Collections.singletonList(authority);
     }
 
@@ -99,7 +90,7 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return true;
     }
 
     @Override
@@ -109,6 +100,6 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }

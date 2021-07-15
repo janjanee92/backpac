@@ -1,6 +1,7 @@
 package com.backpac.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.apache.commons.text.RandomStringGenerator;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @Table(name="backpac_order")
+@ToString(exclude = {"member"})
 public class Order {
 
     @Id
