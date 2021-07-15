@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select o from Order o join fetch o.member m where m.id = :id")
+    @Query("select o from Order o join o.member m where m.id = :id")
     List<Order> findAllByMember(@Param("id") Long age);
 
 }
