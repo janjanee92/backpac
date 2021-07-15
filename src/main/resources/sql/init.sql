@@ -1,7 +1,8 @@
 -- START DROP TABLE ---------------------
 drop table if exists backpac_order cascade;
 drop table if exists backpac_member cascade;
-drop table if exists hibernate_sequence cascade;
+drop table if exists member_sequence cascade;
+drop table if exists order_sequence cascade;
 -- END DROP TABLE -----------------------
 
 -- START CREATE TABLE -------------------
@@ -42,6 +43,8 @@ create table backpac_order
 alter table backpac_order
     add constraint FK_backpac_order_member_id foreign key (member_id)
         references backpac_member (member_id);
+alter table backpac_order
+    add constraint UK_backpac_order_order_no unique (order_no);
 
 -- SEQUENCE
 create table member_sequence

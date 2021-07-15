@@ -51,7 +51,8 @@ public class Member implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 1)
-    private Gender gender;
+    @Builder.Default
+    private Gender gender = Gender.N;
 
     @OneToMany(mappedBy = "member")
     @Builder.Default
@@ -66,6 +67,18 @@ public class Member implements UserDetails {
 
     @Builder.Default
     private boolean enabled = true;
+
+    public static Member createMember(String name, String nickname, String email,
+                                      String password, String phoneNumber, Gender gender) {
+        return Member.builder()
+                .email(email)
+                .name(name)
+                .gender(gender)
+                .nickname(nickname)
+                .password(password)
+                .phoneNumber(phoneNumber)
+                .build();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

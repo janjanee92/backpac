@@ -10,11 +10,15 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: update
+#      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:/sql/init.sql
 
 jwt:
   secretKey: "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppaGFuLXNwcmluZy1ib290LXNlY3VyaXR5LWp3dC10dXRvcmlhbAo="

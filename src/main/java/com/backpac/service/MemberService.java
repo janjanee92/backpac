@@ -21,16 +21,19 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public static final String USER_NOT_FOUND_MSG = "사용자를 찾을 수 없습니다.";
+    public static final String USER_EXIST_NICKNAME_MSG = "이미 존재하는 닉네임 입니다.";
+    public static final String USER_EXIST_EMAIL_MSG = "이미 존재하는 이메일 주소입니다.";
+
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return memberRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(email));
+    public UserDetails loadUserByUsername(String emailOrNickname) throws UsernameNotFoundException {
+        return memberRepository.findByEmailOrNickname(emailOrNickname, emailOrNickname)
+                .orElseThrow(() -> new UsernameNotFoundException(emailOrNickname));
     }
 
     @Transactional
     public Long saveNewMember(@Valid SignUpDto signUpDto) {
-        validateDuplicateMemberEmail(signUpDto.getEmail());
+        validateDuplicateMember(signUpDto.getEmail(), signUpDto.getNickname());
 
         Member newMember = Member.builder()
                 .name(signUpDto.getName())
@@ -44,19 +47,23 @@ public class MemberService implements UserDetailsService {
         return memberRepository.save(newMember).getId();
     }
 
-    private void validateDuplicateMemberEmail(String email) {
-        boolean memberExist = memberRepository.findByEmail(email)
-                .isPresent();
+    private void validateDuplicateMember(String email, String nickname) {
+        boolean existsByEmail = memberRepository.existsByEmail(email);
 
-        if (memberExist) {
-            throw new IllegalStateException("이미 존재하는 이메일 주소입니다.");
+        if (existsByEmail) {
+            throw new IllegalStateException(USER_EXIST_EMAIL_MSG);
+        }
+
+        boolean existsByNickname = memberRepository.existsByNickname(nickname);
+
+        if (existsByNickname) {
+            throw new IllegalStateException(USER_EXIST_NICKNAME_MSG);
         }
     }
 
-    public Member findOne(String emailOrNickname) {
-        return memberRepository.findByEmail(emailOrNickname)
-                .orElseGet(() -> memberRepository.findByNickname(emailOrNickname)
-                        .orElseThrow(() -> new IllegalStateException("사용자 정보가 존재하지 않습니다.")));
+    public Member findOne(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException(USER_NOT_FOUND_MSG));
     }
 
 }
