@@ -1,6 +1,5 @@
 package com.backpac.controller;
 
-import com.backpac.dto.MemberResponseDto;
 import com.backpac.dto.SignUpDto;
 import com.backpac.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,6 @@ public class MainController {
 
     /**
      * 회원가입
-     * @param signUpDto
-     * @return
      */
     @PostMapping("/sign-up")
     public ResponseEntity<Long> signUp(@Valid @RequestBody SignUpDto signUpDto) {

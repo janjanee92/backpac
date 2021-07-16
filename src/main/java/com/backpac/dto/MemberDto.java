@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MemberResponseDto {
+public class MemberDto {
     private Long id;
     private String name;
     private String nickname;
@@ -15,8 +15,8 @@ public class MemberResponseDto {
     private String phoneNumber;
     private Gender gender;
 
-    public static MemberResponseDto entityToDto(Member member) {
-        return MemberResponseDto.builder()
+    public static MemberDto entityToDto(Member member) {
+        return MemberDto.builder()
                 .id(member.getId())
                 .name(member.getName())
                 .nickname(member.getNickname())

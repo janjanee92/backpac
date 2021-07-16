@@ -1,9 +1,13 @@
 package com.backpac.service;
 
 import com.backpac.domain.Member;
+import com.backpac.dto.MemberOrderDto;
 import com.backpac.dto.SignUpDto;
-import com.backpac.repository.MemberRepository;
+import com.backpac.dto.condition.MemberCond;
+import com.backpac.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -64,6 +68,11 @@ public class MemberService implements UserDetailsService {
     public Member findOne(Long id) {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException(USER_NOT_FOUND_MSG));
+    }
+
+    public Page<MemberOrderDto> findAll(MemberCond cond, Pageable pageable) {
+        Page<Member> members = memberRepository.searchPage(cond, pageable);
+        return members.map(MemberOrderDto::new);
     }
 
 }

@@ -55,6 +55,7 @@ public class Member implements UserDetails {
     @Builder.Default
     private Gender gender = Gender.N;
 
+    @OrderBy("paymentTime desc")
     @OneToMany(mappedBy = "member")
     @Builder.Default
     private List<Order> orders = new ArrayList<>();

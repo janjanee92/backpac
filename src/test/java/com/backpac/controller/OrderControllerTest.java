@@ -2,6 +2,7 @@ package com.backpac.controller;
 
 import com.backpac.jwt.TokenProvider;
 import com.backpac.jwt.config.JwtConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,18 @@ class OrderControllerTest {
     @Autowired JwtConfig jwtConfig;
     @Autowired TokenProvider tokenProvider;
 
+    public String testToken = "";
+
+    @BeforeEach
+    void beforeEach() {
+        testToken = jwtConfig.getTokenPrefix() + tokenProvider.createToken("test");
+    }
+
     @DisplayName("주문 조회 - 단일 회원")
     @Test
     void findOrder () throws Exception {
         mockMvc.perform(get("/api/orders/member/1")
-                .header(jwtConfig.getAuthorizationHeader(),
-                        jwtConfig.getTokenPrefix() + tokenProvider.createToken("chun2@gmail.com")))
+                .header(jwtConfig.getAuthorizationHeader(), testToken))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].productName").value("목걸이"))

@@ -1,7 +1,7 @@
 package com.backpac.controller;
 
 import com.backpac.domain.Order;
-import com.backpac.dto.OrderResponseDto;
+import com.backpac.dto.OrderDto;
 import com.backpac.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,11 +25,11 @@ public class OrderController {
      * 단일 회원 주문 목록 조회
      */
     @GetMapping("/member/{id}")
-    public ResponseEntity<List<OrderResponseDto>> findOrdersByMember(@PathVariable Long id) {
+    public ResponseEntity<List<OrderDto>> findOrdersByMember(@PathVariable Long id) {
         List<Order> orders = orderService.findOrdersByMember(id);
         return new ResponseEntity<>(
                 orders.stream()
-                .map(OrderResponseDto::entityToDto)
+                .map(OrderDto::entityToDto)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 }
