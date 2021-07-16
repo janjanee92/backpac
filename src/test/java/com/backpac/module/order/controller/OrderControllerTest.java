@@ -40,6 +40,6 @@ class OrderControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].productName").value("목걸이"))
-                .andExpect(jsonPath("$.[1].productName").value("반지"));
+                .andExpect(jsonPath("$.[1].productName").value("반지💍"));
     }
 }

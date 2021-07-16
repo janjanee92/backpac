@@ -32,10 +32,10 @@ create table backpac_order
     order_id     bigint       not null,
     order_no     varchar(12)  not null,
     payment_time timestamp(6) not null,
-    product_name varchar(100) not null,
+     product_name blob not null,
     member_id    bigint,
     primary key (order_id)
-) engine = InnoDB;
+) engine = InnoDB default charset=utf8mb4 collate utf8mb4_bin;
 
 alter table backpac_order
     add constraint FK_backpac_order_member_id foreign key (member_id)

@@ -55,16 +55,16 @@ public class InitData {
 
         List<Order> orders = new ArrayList<>();
         orders.add(Order.createOrder("목걸이", members.get(0)));
-        orders.add(Order.createOrder("반지", members.get(0)));
+        orders.add(Order.createOrder("반지💍", members.get(0)));
         orders.add(Order.createOrder("지갑", members.get(0)));
         orders.add(Order.createOrder("목걸이", members.get(1)));
-        orders.add(Order.createOrder("반지", members.get(1)));
+        orders.add(Order.createOrder("반지💍", members.get(1)));
         orders.add(Order.createOrder("핸드폰 케이스", members.get(2)));
         orders.add(Order.createOrder("스티커", members.get(2)));
         orders.add(Order.createOrder("마크라메", members.get(3)));
         orders.add(Order.createOrder("키링", members.get(4)));
         orders.add(Order.createOrder("책갈피", members.get(5)));
-        orders.add(Order.createOrder("명함", members.get(6)));
+        orders.add(Order.createOrder("명함📇", members.get(6)));
         orders.add(Order.createOrder("컵홀더", members.get(7)));
 
         orders.forEach(orderRepository::save);
