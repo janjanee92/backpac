@@ -41,7 +41,9 @@ public class MemberController {
             @ApiImplicitParam(name = "page", dataType = "integer", paramType = "query",
                     value = "페이지 (default - 0)"),
             @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
-                    value = "페이지 레코드 갯수 (default - 20)")}
+                    value = "페이지 레코드 갯수 (default - 20)"),
+            @ApiImplicitParam(name = "sort", dataType = "string", paramType = "query",
+                    value = "페이지 정렬 (format - property,(asc|desc)")}
     )
     public ResponseEntity<Page<MemberOrderDto>> searchMembers(MemberCond memberCond, @ApiIgnore Pageable pageable) {
         Page<MemberOrderDto> search = memberService.findAll(memberCond, pageable);
