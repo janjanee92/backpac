@@ -1,7 +1,7 @@
 package com.backpac.module.common.controller;
 
 import com.backpac.module.member.entity.Gender;
-import com.backpac.module.member.dto.SignUpDto;
+import com.backpac.module.common.dto.SignUpDto;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

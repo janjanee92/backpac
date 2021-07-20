@@ -61,18 +61,6 @@ public class Member implements UserDetails {
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
-    public static Member createMember(String name, String nickname, String email,
-                                      String password, String phoneNumber, Gender gender) {
-        return Member.builder()
-                .email(email)
-                .name(name)
-                .gender(gender)
-                .nickname(nickname)
-                .password(password)
-                .phoneNumber(phoneNumber)
-                .build();
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =

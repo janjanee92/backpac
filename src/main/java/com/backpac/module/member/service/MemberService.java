@@ -1,7 +1,7 @@
 package com.backpac.module.member.service;
 
 import com.backpac.module.member.dto.MemberOrderDto;
-import com.backpac.module.member.dto.SignUpDto;
+import com.backpac.module.common.dto.SignUpDto;
 import com.backpac.module.member.dto.condition.MemberCond;
 import com.backpac.module.member.entity.Member;
 import com.backpac.module.member.repository.MemberRepository;

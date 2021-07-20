@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -49,13 +50,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, tokenProvider))
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, tokenProvider), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "/sign-up")
+                .antMatchers("/", "/sign-in", "/sign-up", "/swagger-ui")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
 
         http.logout()
                 .logoutSuccessUrl("/");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/v3/api-docs", "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui/**", "/webjars/**", "/swagger/**",
+                        "/swagger-resources/**");
     }
 
     @Override

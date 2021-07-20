@@ -17,12 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@RequiredArgsConstructor
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
     private final TokenProvider tokenProvider;
+
+    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
+                                                      JwtConfig jwtConfig,
+                                                      TokenProvider tokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.jwtConfig = jwtConfig;
+        this.tokenProvider = tokenProvider;
+
+        setFilterProcessesUrl("/sign-in");
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
